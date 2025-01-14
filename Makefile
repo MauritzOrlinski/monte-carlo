@@ -1,4 +1,4 @@
-TARGET_EXEC := particle-sim.out
+TARGET_EXEC := a.out
 BUILD_DIR := ./build
 SRC_DIRS := ./src
 
