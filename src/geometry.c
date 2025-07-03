@@ -40,7 +40,7 @@ void draw_polygon(float *x, float *y, size_t n) {
   glEnd();
 }
 
-void draw_plot_segment(float x1, float y1, float x2, float y2, float w) {
+void draw_line(float x1, float y1, float x2, float y2, float w) {
   glEnable(GL_LINE_SMOOTH);
   glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
   glLineWidth(w);
@@ -51,26 +51,27 @@ void draw_plot_segment(float x1, float y1, float x2, float y2, float w) {
   glDisable(GL_LINE_SMOOTH);
 }
 
-void render_bitmap_string(float x, float y, void *font, const char *string) {
-  glMatrixMode(GL_PROJECTION);
-  glPushMatrix();   // save
-  glLoadIdentity(); // and clear
-  glMatrixMode(GL_MODELVIEW);
+void write_text_roman_mono(GLfloat x_, GLfloat y_, GLfloat s,
+                           const char *text) {
   glPushMatrix();
-  glLoadIdentity();
+  glEnable(GL_LINE_SMOOTH);
+  glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+  glTranslatef(x_, y_, 0);
+  glScalef(s, s, s);
+  for (size_t i = 0; text[i]; i++)
+    glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, text[i]);
+  glDisable(GL_LINE_SMOOTH);
+  glPopMatrix();
+}
 
-  glDisable(GL_DEPTH_TEST); // also disable the depth test so renders on top
-
-  glRasterPos2f(x, y); // center of screen. (-1,0) is center left.
-  glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-  do
-    glutBitmapCharacter(font, *string);
-  while (*(++string));
-
-  glEnable(GL_DEPTH_TEST); // Turn depth testing back on
-
-  glMatrixMode(GL_PROJECTION);
-  glPopMatrix(); // revert back to the matrix I had before.
-  glMatrixMode(GL_MODELVIEW);
+void write_text_roman(GLfloat x_, GLfloat y_, GLfloat s, const char *text) {
+  glPushMatrix();
+  glEnable(GL_LINE_SMOOTH);
+  glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+  glTranslatef(x_, y_, 0);
+  glScalef(s, s, s);
+  for (size_t i = 0; text[i]; i++)
+    glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
+  glDisable(GL_LINE_SMOOTH);
   glPopMatrix();
 }

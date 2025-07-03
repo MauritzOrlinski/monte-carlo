@@ -9,6 +9,7 @@
 void draw_circle(float, float, float);
 float dist(float, float, float, float);
 void draw_polygon(float *, float *, size_t);
-void draw_plot_segment(float x1, float y1, float x2, float y2, float w);
-void render_bitmap_string(float, float, void *, const char *);
+void draw_line(float x1, float y1, float x2, float y2, float w);
+void write_text_roman(GLfloat x_, GLfloat y_, GLfloat s, const char *text);
+void write_text_roman_mono(GLfloat x_, GLfloat y_, GLfloat s, const char *text);
 #endif // !GEOMETRY_H
